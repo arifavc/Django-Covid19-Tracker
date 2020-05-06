@@ -1,0 +1,71 @@
+{% extends 'info/base.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Dünya | Covid19</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Table -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Dünya Geneli Veriler</h5>
+        </div>
+    </div>
+
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="table-responsive">
+                                <table id="world" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Ülke</th>
+                                            <th>Vaka Sayısı</th>
+                                            <th>Ölüm Sayısı</th>
+                                            <th>İyileşen Sayısı</th>
+                                           
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Ülke</th>
+                                            <th>Vaka Sayısı</th>
+                                            <th>Ölüm Sayısı</th>
+                                            <th>İyileşen Sayısı</th>
+                                          
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                        {% for i in world.all_countries|dictsortreversed:"latest_data.deaths"%}
+                                        <tr>
+                                            <td>{{i.name}}</td>
+                                            <td>{{i.latest_data.confirmed}}</td>
+                                            <td>{{i.latest_data.deaths}}</td>
+                                            <td>{{i.latest_data.recovered}}</td>
+                                            <!-- <td></td> -->
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

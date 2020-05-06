@@ -1,0 +1,390 @@
+{% extends 'info/base.html' %}
+{% load static %}
+
+
+
+{% block title %}
+<title>{{country.name}} | Covid19</title>
+{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+    <div class="panel card-view">
+        <div class="panel-heading small-panel-heading relative">
+            <div class="pull-left">
+                <img style="float:left;" src="{{country.flag}}">
+                <h6 style="margin:22px 0 0 12px;display:inline-block;font-size:30px; font-weight: 700;"
+                    class="panel-title">
+                    {{country.name}} </h6>
+
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="head-overlay"></div>
+
+        </div>
+        <div class="panel-wrapper collapse in">
+            <div class="panel-body row pa-0">
+                <div class="sm-data-box">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-12 pt-0 pl-4 pr-0 data-wrap-left">
+                                <p>Nüfus: <span class="counter-anim">{{country.population}}</span> </p>
+                                <p><span class="text-primary">Son Güncelleme:</span>{{country.last_update|date:"j F l , H:i"}}
+                                </p>
+
+                            </div>
+                            <!-- <div class=" col-xs-6 text-center pl-0 pr-0 pt-0 data-wrap-right">
+
+
+                                        </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default card-view pa-0">
+        <div class="panel-wrapper collapse in">
+
+            <div class="panel-body pa-0">
+                <div class="sm-data-box">
+                    <div class="container-fluid">
+                        <div class="row ">
+
+                            <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left ">
+                                <span class="txt-dark block counter"><span
+                                        class="counter-anim text-danger">{{country.today.confirmed}}</span></span>
+                                <span class="weight-500 capitalize-font block font-13">Bugünkü Vaka
+                                    Sayısı</span>
+                            </div>
+                            <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                <i class="icon-control-rewind data-right-rep-icon txt-light-grey"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default card-view pa-0">
+        <div class="panel-wrapper collapse in">
+
+            <div class="panel-body pa-0">
+                <div class="sm-data-box">
+                    <div class="container-fluid">
+                        <div class="row ">
+
+                            <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left ">
+                                <span class="txt-dark block counter"><span
+                                        class="counter-anim text-danger">{{country.today.deaths}}</span></span>
+                                <span class="weight-500 capitalize-font block font-13">Bugünkü Vefat
+                                    Sayısı</span>
+                            </div>
+                            <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                <i class="icon-control-rewind data-right-rep-icon txt-light-grey"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default card-view pa-0">
+        <div class="panel-wrapper collapse in">
+            <div class="panel-body pa-0">
+                <div class="sm-data-box">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                <span class="txt-dark block counter"><span
+                                        class="counter-anim text-success">{{country.today.recovered}}</span></span>
+                                <span class="weight-500 capitalize-font font-13 block">Bugünkü İyileşen
+                                    Sayısı</span>
+                            </div>
+                            <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                <i class="icon-user-following data-right-rep-icon txt-light-grey"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-lg-9 col-md-6 col-sm-12 col-xs-12">
+    <div class=" panel panel-default card-view">
+        <div class="panel-heading text-center">
+            <div class="pull-left">
+                <h6 class="panel-title txt-dark">Artış Grafiği</h6>
+            </div>
+
+
+
+            <span id="typed" style="font-weight: 500;font-size:17px;display: inline;"></span>
+
+            <div class=" pull-right">
+
+                <a href="#" class="pull-left inline-block full-screen">
+                    <i class="zmdi zmdi-fullscreen"></i>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-wrapper collapse in">
+            <div class="panel-body">
+                <ul class="flex-stat mb-10 ml-15">
+                    <li class="text-left auto-width mr-60">
+                        <span class="block">Toplam Vaka Sayısı</span>
+                        <span class=" txt-dark weight-500 font-18"><span
+                                class="counter-anim">{{country.total.confirmed}}</span></span>
+
+
+                        {% if country.increment.confirmed >= 0 %}
+                        <span class=" txt-success mt-5">
+                            <i class="zmdi zmdi-caret-up pr-5 font-20"></i><span
+                                class="weight-500">+{{country.increment.confirmed}}%</span>
+                        </span>
+
+                        {% else %}
+                        <span class=" txt-danger mt-5">
+                            <i class="zmdi zmdi-caret-down pr-5 font-20"></i><span
+                                class="weight-500">{{country.increment.confirmed}}%</span>
+                        </span>
+                        {% endif %}
+                        <div class="clearfix"></div>
+                    </li>
+                    <li class="text-left auto-width mr-60">
+                        <span class="block">Toplam Vefat Sayısı</span>
+                        <span class=" txt-dark weight-500 font-18"><span
+                                class="counter-anim">{{country.total.deaths}}</span></span>
+
+
+                        {% if country.increment.deaths >= 0 %}
+                        <span class="txt-success mt-5">
+                            <i class="zmdi zmdi-caret-up pr-5 font-20"></i><span
+                                class="weight-500">+{{country.increment.deaths}}%</span>
+                        </span>
+                        {% else %}
+                        <span class="txt-danger mt-5">
+                            <i class="zmdi zmdi-caret-down pr-5 font-20"></i><span
+                                class="weight-500">{{country.increment.deaths}}%</span>
+                        </span>
+                        {% endif %}
+
+
+                        <div class="clearfix"></div>
+                    </li>
+
+                    <li class="text-left auto-width">
+                        <span class="block">Toplam İyileşen Sayısı</span>
+                        <span class=" txt-dark weight-500 font-18"><span
+                                class="counter-anim">{{country.total.recovered}}</span></span>
+
+
+                        {% if country.increment.recovered >= 0 %}
+                        <span class=" txt-success mt-5">
+                            <i class="zmdi zmdi-caret-up pr-5 font-20"></i><span
+                                class="weight-500">+{{country.increment.recovered}}%</span>
+                        </span>
+                        {% else %}
+                        <span class=" txt-danger mt-5">
+                            <i class="zmdi zmdi-caret-down pr-5 font-20"></i><span
+                                class="weight-500">{{country.increment.recovered}}%</span>
+                        </span>
+                        {% endif %}
+
+
+
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+
+
+                <canvas id="myChart" width="400" height="200"></canvas>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="container-fluid">
+
+    <!-- Table -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Export</h5>
+        </div>
+    </div>
+
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Tarih</th>
+                                            <th>Vaka Sayısı</th>
+                                            <th>Vefat Sayısı</th>
+                                            <th>iyileşen Sayısı</th>
+                                           
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Tarih</th>
+                                            <th>Vaka Sayısı</th>
+                                            <th>Vefat Sayısı</th>
+                                            <th>İyileşen Sayısı</th>
+                                           
+
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                        {% for i in country.timeline%}
+                                        <tr>
+                                            <td>{{i.date|date:"SHORT_DATE_FORMAT"}}</td>
+                                            <td>{{i.confirmed}}</td>
+                                            <td>{{i.deaths}}</td>
+                                            <td>{{i.recovered}}</td>
+                                            
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer container-fluid pl-30 pr-30">
+    <div class="row">
+        <div class="col-sm-12">
+            <p>2020 &copy; Arif Avcı</p>
+        </div>
+    </div>
+</footer>
+<!-- /Footer -->
+
+{% endblock content %}
+
+
+{% block js %}
+<script>
+    var date = [];
+    var deaths = [];
+    var confirmed = [];
+    var recovered = [];
+
+    '{%for i in country.timeline%}' 
+    date.push("{{i.date|date:'j F Y'}}");
+    deaths.push(parseInt('{{i.deaths}}'));
+    confirmed.push(parseInt('{{i.confirmed}}'))
+    recovered.push(parseInt('{{i.recovered}}'))
+    '{% endfor %}'
+   
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			
+			labels: date.reverse(),
+			datasets: [
+				{
+					label: 'Vefat Sayısı',
+					data: deaths.reverse(),
+					backgroundColor: "#ffe0ac",
+                    borderWidth: 1,
+                    fill:true
+
+
+                },
+                {
+					label: 'iyileşen Sayısı',
+					data: recovered.reverse(),
+					backgroundColor: "#6886c5",
+				
+                    borderWidth: 1,
+                    fill:true
+
+
+                },
+                {
+					label: 'Vaka Sayısı',
+					data: confirmed.reverse(),
+                    backgroundColor: "#ffacb7",
+                    borderWidth: 1,
+                    fill:true
+				},
+			]
+		},
+		options: {
+            tooltips: {
+      mode: 'index',
+      intersect: true
+    },
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+            }
+            
+		}
+    });
+    
+$(document).ready(function () {
+			setTimeout(300)
+			var options = {
+				strings: ['  Sağlığın için', 'Sevdiklerin için', 'Ülken için',
+					'Yapabileceğin bir şey var^3000 ',
+					'#EvdeKal!^5000'
+
+				],
+
+				typeSpeed: 40,
+				backSpeed: 50,
+				smartBackspace: true,
+				startDelay: 7000,
+				// loop: true,
+				// loopCount: 2,
+				onComplete: function (self) {
+					self.cursor.remove()
+				}
+
+
+			};
+
+			var typed = new Typed('#typed', options)
+
+
+
+		});
+    </script>
+{% endblock js %}
+    
