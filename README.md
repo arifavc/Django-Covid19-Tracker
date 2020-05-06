@@ -1,7 +1,10 @@
 # Django Covid19 Uygulaması
 Uygulama henüz bitmedi, vakit buldukça geliştirmeye devam ediyorum. 
 
+## Demo
+
 ![Demo](screenshots/ss.gif)
+
 
 > Verileri export bölümünden istediğiniz formatta indirebilirsiniz.
 
